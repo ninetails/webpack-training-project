@@ -21,6 +21,7 @@ const runChecks = () => {
   const errorMessage =
     'Looks like you haven’t generated the GitHub access token. Please see the “Initialize the environment” section in the Readme.';
 
+  // eslint-disable-next-line no-undef
   if (!__webpack_modules__[require.resolveWeak('../appConfig.json')]) {
     throw new Error(errorMessage);
   }

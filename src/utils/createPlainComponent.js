@@ -25,7 +25,7 @@
  *         // The #root element now has <p>Text</p> as a child
  *
  * @param {String} htmlString
- * @returns {Function}
+ * @return {Function}
  */
 const createPlainComponent = htmlString => {
   const container = document.createElement('div');
