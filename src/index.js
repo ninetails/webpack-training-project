@@ -33,9 +33,9 @@ switch (path) {
       /* webpackChunkName: "home" */
       /* webpackMode: "lazy" */
       './components/Home'
-    ).then(chunk => chunk.default ? chunk.default : chunk).then(renderHome => {
-      renderHome(document.querySelector('#root'));
-    });
+    )
+    .then(chunk => chunk.default ? chunk.default : chunk)
+    .then(renderHome => renderHome(document.querySelector('#root')));
     break;
 
   case '/users/':
@@ -43,7 +43,8 @@ switch (path) {
       /* webpackChunkName: "user" */
       /* webpackMode: "lazy" */
       './components/User'
-    ).then(chunk => chunk.default ? chunk.default : chunk).then(renderUser => renderUser(document.querySelector('#root')));
+    ).then(chunk => chunk.default ? chunk.default : chunk)
+    .then(renderUser => renderUser(document.querySelector('#root')));
     break;
 
   default:

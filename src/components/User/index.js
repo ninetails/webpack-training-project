@@ -25,9 +25,6 @@ import createHashRouter from 'hash-router';
 import createPlainComponent from '../../utils/createPlainComponent';
 import renderUserHeader from '../UserHeader';
 import renderUsernameInput from '../UsernameInput';
-import renderUserProfile from '../UserProfile';
-import renderUserFollowers from '../UserFollowers';
-import renderUserFollowing from '../UserFollowing';
 import './style.css';
 
 const Route = {
@@ -91,7 +88,13 @@ const render = target => {
     routerTarget.innerHTML = '';
     renderUsername(routerTarget, { username });
     renderNavigation(routerTarget, { username, currentRoute: Route.USERNAME });
-    renderUserProfile(routerTarget, { username });
+    import(
+      /* webpackChunkName: "user-profile" */
+      /* webpackMode: "lazy" */
+      '../UserProfile'
+    )
+    .then(chunk => chunk.default ? chunk.default : chunk)
+    .then(renderUserProfile => renderUserProfile(routerTarget, { username }));
   });
 
   router.addRoute('#/:username/followers', (hash, options) => {
@@ -100,7 +103,13 @@ const render = target => {
     routerTarget.innerHTML = '';
     renderUsername(routerTarget, { username });
     renderNavigation(routerTarget, { username, currentRoute: Route.FOLLOWERS });
-    renderUserFollowers(routerTarget, { username });
+    import(
+      /* webpackChunkName: "user-followers" */
+      /* webpackMode: "lazy" */
+      '../UserFollowers'
+    )
+      .then(chunk => chunk.default ? chunk.default : chunk)
+      .then(renderUserFollowers => renderUserFollowers(routerTarget, { username }));
   });
 
   router.addRoute('#/:username/following', (hash, options) => {
@@ -109,7 +118,13 @@ const render = target => {
     routerTarget.innerHTML = '';
     renderUsername(routerTarget, { username });
     renderNavigation(routerTarget, { username, currentRoute: Route.FOLLOWING });
-    renderUserFollowing(routerTarget, { username });
+    import(
+      /* webpackChunkName: "user-following" */
+      /* webpackMode: "lazy" */
+      '../UserFollowing'
+    )
+      .then(chunk => chunk.default ? chunk.default : chunk)
+      .then(renderUserFollowing => renderUserFollowing(routerTarget, { username }));
   });
 
   window.addEventListener('hashchange', router);
