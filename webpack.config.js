@@ -20,12 +20,21 @@ const webpack = require('webpack');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+const minifyHtml = !isProduction ? false : {
+  removeAttributeQuotes: true,
+  collapseWhitespace: true,
+  html5: true,
+  minifyCSS: true,
+  removeComments: true,
+  removeEmptyAttributes: true,
+};
+
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'public', 'build'),
-    filename: 'bundle.js',
+    filename: 'bundle.[chunkhash].js',
     publicPath: '/build/',
   },
   module: {
@@ -51,11 +60,13 @@ module.exports = {
       template: 'src/templates/landing.html',
       filename: path.resolve(__dirname, 'public/index.html'),
       alwaysWriteToDisk: true,
+      minify: minifyHtml,
     }),
     new HtmlWebpackPlugin({
       template: 'src/templates/app.html',
       filename: path.resolve(__dirname, 'public/users/index.html'),
       alwaysWriteToDisk: true,
+      minify: minifyHtml,
     }),
     new MomentLocalesPlugin(),
   ].concat(
