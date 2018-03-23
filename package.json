@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "prod:build": "npm run check-app-config && cross-env NODE_ENV=production webpack",
+    "prod:build": "npm run check-app-config && cross-env NODE_ENV=production webpack --mode production",
     "prod:server": "http-server public",
-    "dev:server": "npm run check-app-config && webpack-dev-server",
+    "dev:server": "npm run check-app-config && webpack-dev-server --mode development",
     "check-app-config": "node ./helpers/check-app-config.js",
     "token": "node ./helpers/save-github-token.js"
   },
