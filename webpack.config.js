@@ -12,6 +12,7 @@
  */
 
 const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
@@ -70,6 +71,10 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin([
+      path.resolve(__dirname, 'public', 'build'),
+      path.resolve(__dirname, 'public', 'index.html'),
+    ]),
     // Emit HTML files that serve the app
     new HtmlWebpackPlugin({
       template: 'src/templates/landing.html',

@@ -7,6 +7,7 @@
     "prod:server": "http-server public",
     "dev:server": "npm run check-app-config && webpack-dev-server",
     "analyze": "npm run check-app-config && cross-env NODE_ENV=production webpack",
+    "check-size": "bundlesize",
     "check-app-config": "node ./helpers/check-app-config.js",
     "token": "node ./helpers/save-github-token.js"
   },
@@ -22,7 +23,9 @@
     "@babel/preset-env": "^7.0.0-beta.42",
     "babel-eslint": "^8.2.2",
     "babel-loader": "^8.0.0-beta.2",
+    "bundlesize": "^0.16.0",
     "chalk": "^2.3.0",
+    "clean-webpack-plugin": "^0.1.19",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
@@ -37,5 +40,15 @@
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.0.12",
     "webpack-dev-server": "^3.1.1"
-  }
+  },
+  "bundlesize": [
+    {
+      "path": "./public/**/main.*.js",
+      "maxSize": "20 kB"
+    },
+    {
+      "path": "./public/**/vendors.*.js",
+      "maxSize": "35 kB"
+    }
+  ]
 }
