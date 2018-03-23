@@ -29,7 +29,8 @@ const minifyHtml = !isProduction ? false : {
 };
 
 module.exports = {
-  mode: 'development',
+  mode: isProduction ? 'production' : 'development',
+  devtool: isProduction ? 'source-map' : 'eval',
   entry: {
     main: './src/index.js',
   },
@@ -85,8 +86,7 @@ module.exports = {
     new MomentLocalesPlugin(),
   ].concat(
     isProduction
-      ? [
-        ]
+      ? []
       : [
           // Force writing the HTML files to disk when running in the development mode
           // (otherwise, webpack-dev-server won’t serve the app)
