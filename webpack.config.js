@@ -31,11 +31,26 @@ const minifyHtml = !isProduction ? false : {
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: {
+    main: './src/index.js',
+  },
   output: {
     path: path.resolve(__dirname, 'public', 'build'),
-    filename: 'bundle.[chunkhash].js',
+    filename: '[name].[chunkhash].js',
     publicPath: '/build/',
+  },
+  optimization: {
+    runtimeChunk: true,
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          chunks: 'initial',
+          test: path.resolve(__dirname, 'node_modules'),
+          name: 'vendor',
+          enforce: true,
+        },
+      },
+    },
   },
   module: {
     rules: [
