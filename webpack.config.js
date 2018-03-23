@@ -16,6 +16,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -81,13 +82,16 @@ module.exports = {
       filename: path.resolve(__dirname, 'public/index.html'),
       alwaysWriteToDisk: true,
       minify: minifyHtml,
+      inlineSource: 'runtime.*.js$',
     }),
     new HtmlWebpackPlugin({
       template: 'src/templates/app.html',
       filename: path.resolve(__dirname, 'public/users/index.html'),
       alwaysWriteToDisk: true,
       minify: minifyHtml,
+      inlineSource: 'runtime.*.js$',
     }),
+    new HtmlWebpackInlineSourcePlugin(),
     new MomentLocalesPlugin(),
   ].concat(
     isProduction
