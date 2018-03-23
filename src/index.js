@@ -17,10 +17,8 @@
  * and renders the corresponding component.
  */
 
-import 'babel-polyfill';
+import '@babel/polyfill';
 
-import renderHome from './components/Home';
-import renderUser from './components/User';
 import initDevelopmentHelpers from './initDevelopmentHelpers';
 
 // This sets up things that help you during development.
@@ -31,11 +29,21 @@ const path = window.location.pathname;
 
 switch (path) {
   case '/':
-    renderHome(document.querySelector('#root'));
+    import(
+      /* webpackChunkName: "home" */
+      /* webpackMode: "lazy" */
+      './components/Home'
+    ).then(chunk => chunk.default ? chunk.default : chunk).then(renderHome => {
+      renderHome(document.querySelector('#root'));
+    });
     break;
 
   case '/users/':
-    renderUser(document.querySelector('#root'));
+    import(
+      /* webpackChunkName: "user" */
+      /* webpackMode: "lazy" */
+      './components/User'
+    ).then(chunk => chunk.default ? chunk.default : chunk).then(renderUser => renderUser(document.querySelector('#root')));
     break;
 
   default:

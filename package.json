@@ -11,17 +11,17 @@
     "token": "node ./helpers/save-github-token.js"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
+    "@babel/polyfill": "^7.0.0-beta.42",
     "hash-router": "^0.4.0",
     "moment": "^2.19.3",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
+    "@babel/core": "^7.0.0-beta.42",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0-beta.42",
+    "@babel/preset-env": "^7.0.0-beta.42",
     "babel-eslint": "^8.2.2",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-lodash": "^3.3.2",
-    "babel-preset-env": "^1.6.1",
+    "babel-loader": "^8.0.0-beta.2",
     "chalk": "^2.3.0",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.11",

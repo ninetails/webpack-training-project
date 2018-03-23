@@ -16,7 +16,6 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-const webpack = require('webpack');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -44,9 +43,9 @@ module.exports = {
     splitChunks: {
       cacheGroups: {
         vendor: {
-          chunks: 'initial',
+          chunks: 'all',
           test: path.resolve(__dirname, 'node_modules'),
-          name: 'vendor',
+          name: 'vendors',
           enforce: true,
         },
       },
@@ -87,7 +86,6 @@ module.exports = {
   ].concat(
     isProduction
       ? [
-          new webpack.optimize.ModuleConcatenationPlugin(),
         ]
       : [
           // Force writing the HTML files to disk when running in the development mode
