@@ -12,8 +12,10 @@
  */
 
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -54,6 +56,7 @@ module.exports = {
       filename: path.resolve(__dirname, 'public/users/index.html'),
       alwaysWriteToDisk: true,
     }),
+    new MomentLocalesPlugin(),
   ].concat(
     isProduction
       ? []
@@ -62,6 +65,12 @@ module.exports = {
           // (otherwise, webpack-dev-server won’t serve the app)
           new HtmlWebpackHarddiskPlugin(),
         ],
+  ).concat(
+    process.env.npm_lifecycle_event === 'analyze'
+      ? [
+          new BundleAnalyzerPlugin(),
+        ]
+      : []
   ),
   devServer: {
     contentBase: path.join(__dirname, 'public'),
