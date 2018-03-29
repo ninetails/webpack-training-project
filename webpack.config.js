@@ -16,7 +16,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 
@@ -96,9 +96,12 @@ module.exports = {
       prefetch: ['**/*.svg', '**/vendors.*', '**/main.*', '**/user.*'],
       preload: ['**/*.svg', '**/vendors.*', '**/main.*', '**/user.*'],
     }),
-    new HtmlWebpackInlineSourcePlugin(),
     new MomentLocalesPlugin(),
     new ResourceHintWebpackPlugin(),
+    new ScriptExtHtmlWebpackPlugin({
+      defaultAttribute: 'async',
+      inline: /runtime.*\.js$/,
+    }),
   ].concat(
     isProduction
       ? []
