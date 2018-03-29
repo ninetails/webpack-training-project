@@ -18,10 +18,12 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const PWAManifestPlugin = require('webpack-pwa-manifest');
 const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const PwaManifestPlugin = require('webpack-pwa-manifest');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
+const SW_CACHE_ID = 'nyancat';
 const isProduction = process.env.NODE_ENV === 'production';
 
 const minifyHtml = !isProduction ? false : {
@@ -78,6 +80,13 @@ module.exports = {
     new CleanWebpackPlugin([
       path.resolve(__dirname, 'public', 'build'),
       path.resolve(__dirname, 'public', 'index.html'),
+      path.resolve(__dirname, 'public', 'index.html.gz'),
+      path.resolve(__dirname, 'public', 'users', 'index.html'),
+      path.resolve(__dirname, 'public', 'users', 'index.html.gz'),
+      path.resolve(__dirname, 'public', 'manifest.json'),
+      path.resolve(__dirname, 'public', 'manifest.json.gz'),
+      path.resolve(__dirname, 'public', 'sw.js'),
+      path.resolve(__dirname, 'public', 'sw.js.gz'),
     ]),
     // Emit HTML files that serve the app
     new HtmlWebpackPlugin({
@@ -104,7 +113,27 @@ module.exports = {
       defaultAttribute: 'async',
       inline: /runtime.*\.js$/,
     }),
-    new PwaManifestPlugin({
+    new SWPrecacheWebpackPlugin({
+      cacheId: SW_CACHE_ID,
+      dontCacheBustUrlsMatching: /(\.\w{8}\.)/,
+      filename: '../sw.js',
+      minify: true,
+      staticFileGlobsIgnorePatterns: [/^\/.*\.html(\.gz)?$/, /\.map$/, /manifest.*\.json$/],
+      staticFileGlobs: [
+        'public/global.css',
+        'public/global.css.gz',
+        'public/landing-imgs/profile.png',
+        'public/',
+        'public/index.html',
+        'public/index.html.gz',
+        'public/users/',
+        'public/users/index.html',
+        'public/users/index.html.gz',
+      ],
+      stripPrefix: 'public',
+      mergeStaticsConfig: true,
+    }),
+    new PWAManifestPlugin({
       name: 'LitHub',
       short_name: 'LitHub',
       description: 'LitHub is a super-light open-source site. It features a slick UI and is optimized to use as little data as possible',

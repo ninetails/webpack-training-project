@@ -76,6 +76,12 @@ const initDevelopmentHelpers = () => {
   setupErrorListener();
 
   runChecks();
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js', { scope: '/' })
+      .then(() => console.log('Service Worker registered successfully.')) // eslint-disable-line no-console
+      .catch(error => console.log('Service Worker registration failed:', error)); // eslint-disable-line no-console
+  }
 };
 
 module.exports = initDevelopmentHelpers;

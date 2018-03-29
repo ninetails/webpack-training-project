@@ -4,7 +4,10 @@ public/index.html
 public/index.html.gz
 public/users/index.html
 public/users/index.html.gz
+public/manifest.json
+public/manifest.json.gz
+public/sw.js
+public/sw.js.gz
 .idea
 .vscode
 appConfig.json
-public/manifest.json

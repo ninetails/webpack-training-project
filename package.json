@@ -39,6 +39,7 @@
     "resource-hints-webpack-plugin": "git+ssh://git@github.com/ninetails/resource-hints-webpack-plugin.git#feature/proposal-chunks-fallback",
     "script-ext-html-webpack-plugin": "^2.0.1",
     "style-loader": "^0.20.3",
+    "sw-precache-webpack-plugin": "^0.11.5",
     "webpack": "^4.1.1",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.0.12",
