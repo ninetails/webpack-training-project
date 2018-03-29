@@ -1,0 +1,8 @@
+{
+  "ignoreRoot": [".git"],
+  "exec": "./node_modules/.bin/http2server start",
+  "watch": ["node_modules/@http2"],
+  "events": {
+    "restart": "( sleep 2 ; curl -k --silent --output /dev/null https://localhost:8443/users/index.html ) &"
+  }
+}

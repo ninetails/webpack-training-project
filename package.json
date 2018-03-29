@@ -4,12 +4,15 @@
   "private": true,
   "scripts": {
     "prod:build": "npm run check-app-config && cross-env NODE_ENV=production webpack",
+    "prod:build:quiet": "npm run prod:build -- --silent",
     "prod:server": "http2server start",
     "dev:server": "npm run check-app-config && webpack-dev-server",
+    "dev:server:quiet": "npm run dev:server -- --quiet",
     "analyze": "npm run check-app-config && cross-env NODE_ENV=production webpack",
     "check-size": "bundlesize",
     "check-app-config": "node ./helpers/check-app-config.js",
-    "token": "node ./helpers/save-github-token.js"
+    "token": "node ./helpers/save-github-token.js",
+    "debug:http2server": "nodemon ./node_modules/.bin/http2server start"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.42",

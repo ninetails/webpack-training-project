@@ -87,7 +87,7 @@ module.exports = {
       path.resolve(__dirname, 'public', 'manifest.json.gz'),
       path.resolve(__dirname, 'public', 'sw.js'),
       path.resolve(__dirname, 'public', 'sw.js.gz'),
-    ]),
+    ], { verbose: false }),
     // Emit HTML files that serve the app
     new HtmlWebpackPlugin({
       template: 'src/templates/landing.html',
@@ -95,8 +95,8 @@ module.exports = {
       alwaysWriteToDisk: true,
       minify: minifyHtml,
       inlineSource: 'runtime.*.js$',
-      prefetch: ['**/manifest*', '**/vendors.*', '**/main.*', '**/home.*'],
-      preload: ['**/manifest*', '**/vendors.*', '**/main.*', '**/home.*'],
+      prefetch: ['/global.css', '/landing-imgs/profile.png', '**/manifest*', '**/vendors.*', '**/main.*', '**/home.*'],
+      preload: ['/global.css', '/landing-imgs/profile.png', '**/manifest*', '**/vendors.*', '**/main.*', '**/home.*'],
     }),
     new HtmlWebpackPlugin({
       template: 'src/templates/app.html',
@@ -104,8 +104,8 @@ module.exports = {
       alwaysWriteToDisk: true,
       minify: minifyHtml,
       inlineSource: 'runtime.*.js$',
-      prefetch: ['**/*.svg', '**/manifest*', '**/vendors.*', '**/main.*', '**/user.*'],
-      preload: ['**/*.svg', '**/manifest*', '**/vendors.*', '**/main.*', '**/user.*'],
+      prefetch: ['**/*.svg', '/global.css', '**/manifest*', '**/vendors.*', '**/main.*', '**/user.*'],
+      preload: ['**/*.svg', '/global.css', '**/manifest*', '**/vendors.*', '**/main.*', '**/user.*'],
     }),
     new MomentLocalesPlugin(),
     new ResourceHintWebpackPlugin(),
