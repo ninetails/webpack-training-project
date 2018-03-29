@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prod:build": "npm run check-app-config && cross-env NODE_ENV=production webpack",
-    "prod:server": "http-server public",
+    "prod:server": "http-server public --gzip",
     "dev:server": "npm run check-app-config && webpack-dev-server",
     "analyze": "npm run check-app-config && cross-env NODE_ENV=production webpack",
     "check-size": "bundlesize",
@@ -26,6 +26,7 @@
     "bundlesize": "^0.16.0",
     "chalk": "^2.3.0",
     "clean-webpack-plugin": "^0.1.19",
+    "compression-webpack-plugin": "^1.1.11",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",

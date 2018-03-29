@@ -1,7 +1,9 @@
 node_modules
 public/build
 public/index.html
+public/index.html.gz
 public/users/index.html
+public/users/index.html.gz
 .idea
 .vscode
 appConfig.json

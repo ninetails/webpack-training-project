@@ -12,13 +12,14 @@
  */
 
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -104,7 +105,13 @@ module.exports = {
     }),
   ].concat(
     isProduction
-      ? []
+      ? [
+          new CompressionPlugin({
+            asset: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: /\.js$|\.css$|\.html$/,
+          }),
+        ]
       : [
           // Force writing the HTML files to disk when running in the development mode
           // (otherwise, webpack-dev-server won’t serve the app)
