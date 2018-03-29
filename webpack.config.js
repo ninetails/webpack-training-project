@@ -18,6 +18,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -83,6 +84,8 @@ module.exports = {
       alwaysWriteToDisk: true,
       minify: minifyHtml,
       inlineSource: 'runtime.*.js$',
+      prefetch: ['**/vendors.*', '**/main.*', '**/home.*'],
+      preload: ['**/vendors.*', '**/main.*', '**/home.*'],
     }),
     new HtmlWebpackPlugin({
       template: 'src/templates/app.html',
@@ -90,9 +93,12 @@ module.exports = {
       alwaysWriteToDisk: true,
       minify: minifyHtml,
       inlineSource: 'runtime.*.js$',
+      prefetch: ['**/*.svg', '**/vendors.*', '**/main.*', '**/user.*'],
+      preload: ['**/*.svg', '**/vendors.*', '**/main.*', '**/user.*'],
     }),
     new HtmlWebpackInlineSourcePlugin(),
     new MomentLocalesPlugin(),
+    new ResourceHintWebpackPlugin(),
   ].concat(
     isProduction
       ? []
