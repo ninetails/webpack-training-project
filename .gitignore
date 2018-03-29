@@ -7,3 +7,4 @@ public/users/index.html.gz
 .idea
 .vscode
 appConfig.json
+public/manifest.json

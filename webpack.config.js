@@ -20,6 +20,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const PwaManifestPlugin = require('webpack-pwa-manifest');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -85,8 +86,8 @@ module.exports = {
       alwaysWriteToDisk: true,
       minify: minifyHtml,
       inlineSource: 'runtime.*.js$',
-      prefetch: ['**/vendors.*', '**/main.*', '**/home.*'],
-      preload: ['**/vendors.*', '**/main.*', '**/home.*'],
+      prefetch: ['**/manifest*', '**/vendors.*', '**/main.*', '**/home.*'],
+      preload: ['**/manifest*', '**/vendors.*', '**/main.*', '**/home.*'],
     }),
     new HtmlWebpackPlugin({
       template: 'src/templates/app.html',
@@ -94,8 +95,8 @@ module.exports = {
       alwaysWriteToDisk: true,
       minify: minifyHtml,
       inlineSource: 'runtime.*.js$',
-      prefetch: ['**/*.svg', '**/vendors.*', '**/main.*', '**/user.*'],
-      preload: ['**/*.svg', '**/vendors.*', '**/main.*', '**/user.*'],
+      prefetch: ['**/*.svg', '**/manifest*', '**/vendors.*', '**/main.*', '**/user.*'],
+      preload: ['**/*.svg', '**/manifest*', '**/vendors.*', '**/main.*', '**/user.*'],
     }),
     new MomentLocalesPlugin(),
     new ResourceHintWebpackPlugin(),
@@ -103,13 +104,23 @@ module.exports = {
       defaultAttribute: 'async',
       inline: /runtime.*\.js$/,
     }),
+    new PwaManifestPlugin({
+      name: 'LitHub',
+      short_name: 'LitHub',
+      description: 'LitHub is a super-light open-source site. It features a slick UI and is optimized to use as little data as possible',
+      start_url: '/',
+      icons: [{
+        src: path.resolve(__dirname, 'icon_1024.png'),
+        sizes: [96, 128, 192, 256, 384, 512, 1024],
+      }],
+    }),
   ].concat(
     isProduction
       ? [
           new CompressionPlugin({
             asset: '[path].gz[query]',
             algorithm: 'gzip',
-            test: /\.js$|\.css$|\.html$/,
+            test: /\.(html|css|js|json)$/,
           }),
         ]
       : [
