@@ -5,9 +5,11 @@
   "scripts": {
     "prod:build": "npm run check-app-config && cross-env NODE_ENV=production webpack",
     "prod:build:quiet": "npm run prod:build -- --silent",
+    "prod:build:silent": "npm run prod:build:quiet",
     "prod:server": "http2server start",
     "dev:server": "npm run check-app-config && webpack-dev-server",
     "dev:server:quiet": "npm run dev:server -- --quiet",
+    "dev:server:silent": "npm run dev:server:quiet",
     "analyze": "npm run check-app-config && cross-env NODE_ENV=production webpack",
     "check-size": "bundlesize",
     "check-app-config": "node ./helpers/check-app-config.js",
